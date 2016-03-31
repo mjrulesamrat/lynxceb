@@ -4,6 +4,7 @@ import smtplib
 from django.core.mail.backends.smtp import EmailBackend as CoreEmailBackend
 from django.core.mail.message import sanitize_address
 
+from django.template.loader import render_to_string
 
 class EmailBackend(CoreEmailBackend):
 
@@ -15,10 +16,10 @@ class EmailBackend(CoreEmailBackend):
         recipients = [sanitize_address(addr, email_message.encoding)
                       for addr in email_message.recipients()]
 
-        cus_head = "<h1>example Header comes here</h1>"
-        cus_footer = "<h3>example footer comes here</h3>"
+        my_header = render_to_string('lynxceb_header.html', {})
+        my_footer = render_to_string('lynxceb_footer.html', {})
 
-        email_message.body = cus_head + email_message.body + cus_footer
+        email_message.body = my_header + '<pre>' + email_message.body+ '</pre>' + my_footer
 
         if email_message.content_subtype == "plain":
             email_message.content_subtype = "html"
