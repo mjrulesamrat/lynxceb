@@ -16,11 +16,11 @@ class EmailBackend(CoreEmailBackend):
         recipients = [sanitize_address(addr, email_message.encoding)
                       for addr in email_message.recipients()]
 
-        my_header = render_to_string('lynxceb_header.html', {})
-        my_footer = render_to_string('lynxceb_footer.html', {})        
+        # my_header = render_to_string('lynxceb_header.html', {})
+        # my_footer = render_to_string('lynxceb_footer.html', {})        
 
         if email_message.content_subtype == "plain":
-            email_message.body = my_header + "<pre style='font-family:arial;'>" + email_message.body+ "</pre>" + my_footer
+            # email_message.body = my_header + "<pre style='font-family:arial;'>" + email_message.body+ "</pre>" + my_footer
             email_message.content_subtype = "html"
 
         message = email_message.message()
